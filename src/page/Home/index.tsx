@@ -1,57 +1,101 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, Gap } from '../../components/atoms';
-import { Header } from '../../components/molecules';
-import BalanceCard from '../../components/molecules/BalanceContent';
 
-const HomeScreen = () => {
+import React from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {Button, Gap} from '../../components/atoms';
+import {DummyPhoto} from '../../assets/pic.png';
+
+const Home = () => {
   return (
     <View style={styles.pageContainer}>
-      <Header text="Hi, Thrilya!" />
-      <Gap height={24} />
-
-     
-      <BalanceCard />
-
-      <Gap height={32} />
-      <Text style={styles.transactionTitle}>Add Transaction</Text>
-      <Gap height={12} />
-      <Button text="Cash On Hand" />
-      <Gap height={16} />
-      <Button text="Cash On Bank" />
+      <View style={styles.headerContainer}>
+        <View>
+          <Text style={styles.appTitle}>{`Hi, John Doe`}</Text>
+          <Text style={styles.appSubTitle}>
+            Have you track your money today?
+          </Text>
+        </View>
+        <Image source={DummyPhoto} style={styles.photo} />
+      </View>
+      <View style={styles.contentWrapper}>
+        <Text style={styles.subTitle}>Your Balance</Text>
+        <Text style={styles.totalBalance}>Rp. 10.000.000</Text>
+        <View style={styles.line} />
+        <View style={styles.subTotalWrapper}>
+          <Text style={styles.subTotal}>Cash On Hand</Text>
+          <Text style={styles.subTotal}>Rp. 4.000.000</Text>
+        </View>
+        <View style={styles.subTotalWrapper}>
+          <Text style={styles.subTotal}>Cash On Bank</Text>
+          <Text style={styles.subTotal}>Rp. 6.000.000</Text>
+        </View>
+        <Text style={styles.subTitle}>Add Transaction</Text>
+        <Button text="Cash On Hand" />
+        <Gap height={10} />
+        <Button text="Cash On Bank" />
+      </View>
     </View>
   );
 };
 
-export default HomeScreen;
+export default Home;
 
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 24,
-    paddingTop: 24,
   },
-  transactionTitle: {
+  contentWrapper: {
+    paddingHorizontal: 24,
+    backgroundColor: '#FFFFFF',
+    marginTop: 20,
+    flex: 1,
+  },
+  subTitle: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
     fontSize: 16,
-    fontWeight: 'bold',
+    marginVertical: 12,
+  },
+  totalBalance: {
+    fontFamily: 'Poppins-SemiBold',
+    color: '#000000',
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  line: {
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+    marginVertical: 18,
+  },
+  subTotalWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  subTotal: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
     color: '#000000',
   },
-  fab: {
-    position: 'absolute',
-    bottom: 30,
-    alignSelf: 'center',
-    backgroundColor: '#00C897',
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
+  headerContainer: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 24,
+    paddingVertical: 37,
+    flexDirection: 'row',
     alignItems: 'center',
-    elevation: 5,
+    justifyContent: 'space-between',
   },
-  fabText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
+  appTitle: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 22,
+    color: '#020202',
+  },
+  appSubTitle: {
+    fontFamily: 'Poppins-Light',
+    fontSize: 14,
+    color: '#8D92A3',
+  },
+  photo: {
+    height: 70,
+    width: 70,
+    borderRadius: 10,
   },
 });

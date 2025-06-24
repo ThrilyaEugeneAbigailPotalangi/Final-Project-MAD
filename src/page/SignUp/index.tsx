@@ -1,11 +1,35 @@
-
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
-import {Header, TextInput} from '../../components/molecules';
-import {Button, Gap} from '../../components/atoms';
+import React, {useState} from 'react';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {NullPhoto} from '../../assets/null-photo.png';
+import {Button, Gap} from '../../components/atoms';
+import {Header, TextInput} from '../../components/molecules';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 
 const SignUp = ({navigation}) => {
+  const [photo, setPhoto] = useState(NullPhoto);
+
+  const getImage = async () => {
+    const result = await launchCamera({
+      maxHeight: 100,
+      maxWidth: 100,
+      quality: 0.5,
+      includeBase64: true,
+      mediaType: 'photo',
+    });
+    if (result.didCancel) {
+      showMessage({
+        message: 'Ambil foto dibatalkan',
+        type: 'danger',
+      });
+      setPhoto(NullPhoto);
+    } else {
+      const data = result.assets[0];
+      const photoBased64 = `data:${data.type};base64, ${data.base64}`;
+      setPhoto({uri: photoBased64});
+    }
+  };
+
   return (
     <View style={styles.pageContainer}>
       <Header
@@ -16,8 +40,8 @@ const SignUp = ({navigation}) => {
       <View style={styles.contentContainer}>
         <View style={styles.profileContainer}>
           <View style={styles.profileBorder}>
-            <TouchableOpacity activeOpacity={0.5}>
-              <Image source={NullPhoto} />
+            <TouchableOpacity activeOpacity={0.5} onPress={getImage}>
+              <Image source={photo} style={styles.avatar} />
             </TouchableOpacity>
           </View>
         </View>
@@ -61,5 +85,10 @@ const styles = StyleSheet.create({
     borderRadius: 110 / 2,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  avatar: {
+    height: 90,
+    width: 90,
+    borderRadius: 90 / 2,
   },
 });

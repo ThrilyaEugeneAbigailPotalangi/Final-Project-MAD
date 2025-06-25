@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {NullPhoto} from '../../assets/null-photo.png';
+import {NullPhoto} from '../../assets/nullphoto.png';
 import {Button, Gap} from '../../components/atoms';
 import {Header, TextInput} from '../../components/molecules';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';

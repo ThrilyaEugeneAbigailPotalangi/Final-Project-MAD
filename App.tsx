@@ -13,7 +13,7 @@ import Reminder from './Final-Project-MAD/src/pageProject/Reminder';
 import Profile from './Final-Project-MAD/src/pageProject/Profile';
 
 const App = () => {
-  return <Profile/>;
+  return <SplashScreen/>;
 };
 
 export default App;

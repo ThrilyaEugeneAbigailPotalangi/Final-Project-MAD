@@ -62,14 +62,15 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 24,
     fontFamily: 'Poppins-SemiBold',
-    textAlign: 'left',
+    textAlign: 'center',
     marginTop: 4,
+
   },
   desc: {
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
     color: '#D0C7C7',
-    textAlign: 'left',
+    textAlign: 'center',
     marginBottom: 8,
   },
   label: {

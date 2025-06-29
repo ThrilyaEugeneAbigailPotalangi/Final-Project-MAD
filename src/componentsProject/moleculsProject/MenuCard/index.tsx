@@ -4,8 +4,8 @@ import Touchable from '../../atomsProject/Touchable';
 import Image from '../../atomsProject/Image';
 import Text from '../../atomsProject/Text';
 
-const MenuCard = ({ title, icon }) => (
-  <Touchable style={styles.card}>
+const MenuCard = ({ title, icon, onPress }) => (
+  <Touchable style={styles.card} onPress={onPress}>
     <Image source={icon} style={styles.cardIcon} />
     <Text style={styles.cardText}>{title}</Text>
   </Touchable>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 15,
     fontFamily: 'Poppins-Regular',
-    marginHorizontal: 5 ,
+    marginHorizontal: 5,
   },
 });
 

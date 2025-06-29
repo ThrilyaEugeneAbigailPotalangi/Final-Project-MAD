@@ -8,12 +8,14 @@ import TextInput from '../../componentsProject/atomsProject/TextInput';
 import QuoteBox from '../../componentsProject/moleculsProject/QuoteBox';
 import MenuCard from '../../componentsProject/moleculsProject/MenuCard';
 
-const Dashboard = () => {
+const Dashboard = ({route, navigation}) => {
+  const {username} = route.params || {};
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <LinearGradient colors={['#2196F3', '#2196F3']} style={styles.header}>
-          <Text style={styles.welcome}>Welcome, User</Text>
+          <Text style={styles.welcome}>Welcome, {username || 'User'}</Text>
           <Text style={styles.subtitle}>
             Let's start your daily with prepare the notes
           </Text>
@@ -31,20 +33,20 @@ const Dashboard = () => {
 
         <View style={styles.menu}>
           <View style={styles.cardRow}>
-            <MenuCard title="Task" icon={require('../../assetsProject/IconTask.png')} /> 
-            <MenuCard title="Expenses" icon={require('../../assetsProject/ExpenseIcon.png')} />
+            <MenuCard title="Task" icon={require('../../assetsProject/IconTask.png')} onPress={() => navigation.navigate('CreateTask')}/> 
+            <MenuCard title="Expenses" icon={require('../../assetsProject/ExpenseIcon.png')} onPress={() => navigation.navigate('CreateExpenses')}/>
           </View>
           <View style={styles.cardRow}>
-            <MenuCard title="Reminder" icon={require('../../assetsProject/ReminderIcon.png')} />
-            <MenuCard title="Goals" icon={require('../../assetsProject/GoalsIcon.png')} />
+            <MenuCard title="Reminder" icon={require('../../assetsProject/ReminderIcon.png')} onPress={() => navigation.navigate('Reminder')}/>
+            <MenuCard title="Goals" icon={require('../../assetsProject/GoalsIcon.png')} onPress={() => navigation.navigate('Goals')} />
           </View>
         </View>
       </ScrollView>
 
       <View style={styles.navbar}>
-        <Icon name="notifications-outline" size={24} />
+        <Icon name="notifications-outline" size={24} onPress={() => navigation.navigate('Reminder')} />
         <Icon name="home" size={24} />
-        <Icon name="person-outline" size={24} />
+        <Icon name="person-outline" size={24} onPress={() => navigation.navigate('Profile')} />
       </View>
     </View>
   );

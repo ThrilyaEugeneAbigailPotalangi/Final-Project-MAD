@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Gap from '../../componentsProject/atomsProject/Gap';
 import Button from '../../componentsProject/atomsProject/buttonProject';
 import TextInput from '../../componentsProject/moleculsProject/TextInput';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = () => {
+    navigation.navigate('Dashboard', {username: username});
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
@@ -14,22 +22,23 @@ const SignIn = () => {
       <Gap height={32} />
 
       <Text style={styles.label}>Username</Text>
-      <TextInput placeholder="Username" />
+      <TextInput placeholder="Username" value={username} onChangeText={setUsername} />
 
       <Gap height={12} />
 
       <Text style={styles.label}>Password</Text>
-      <TextInput placeholder="Password" secureTextEntry={true} />
+      <TextInput placeholder="Password" secureTextEntry={true} value={password} onChangeText={setPassword} />
 
       <Gap height={8} />
 
-      <TouchableOpacity>
-        <Text style={styles.forgot}>Forgot Password?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
+
 
       <Gap height={16} />
 
-      <Button title="Sign In" onPress={() => {}} />
+      <Button title="Sign In" onPress={handleSignIn}/>
       <Gap height={12} />
       <Button title="Sign In with Google" type="secondary" onPress={() => {}} />
 
@@ -37,7 +46,7 @@ const SignIn = () => {
 
       <Text style={styles.footerText}>
         Don’t have an account?{' '}
-        <Text style={styles.linkText}>Create one</Text>
+        <Text style={styles.linkText} onPress={() => navigation.navigate('SignUp')}>Create one</Text>
       </Text>
     </View>
   );

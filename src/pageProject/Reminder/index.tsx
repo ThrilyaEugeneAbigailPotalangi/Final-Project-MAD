@@ -34,7 +34,7 @@ export default function Reminder() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Reminder</Text>
+      <Text style={styles.header}>Stopwatch</Text>
 
       <View style={styles.timerContainer}>
         <Text style={styles.focusText}>Focus Timer</Text>

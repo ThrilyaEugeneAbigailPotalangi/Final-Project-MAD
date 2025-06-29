@@ -8,7 +8,7 @@ export default function ProfileScreen() {
 
       <View style={styles.avatarContainer}>
         <View style={styles.avatar} />
-        <Text style={styles.name}>Nama</Text>
+        <Text style={styles.name}>Username</Text>
       </View>
 
       <Text style={styles.sectionTitle}>Account Info</Text>

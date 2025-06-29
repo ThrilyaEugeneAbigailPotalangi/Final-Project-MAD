@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../App';
 
-export default function OnboardingScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding2'>;
+
+const OnBoarding2 = ({navigation}: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to{"\n"}<Text style={styles.bold}>Daily Tracking</Text></Text>
@@ -21,8 +25,8 @@ export default function OnboardingScreen() {
         <View style={[styles.dot, styles.activeDot]} />
       </View>
 
-      <TouchableOpacity style={styles.skipButton}>
-        <Text style={styles.skipText}>Skip</Text>
+      <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate ('OnBoarding1')}>
+        <Text style={styles.skipText}>Next</Text>
       </TouchableOpacity>
     </View>
   );
@@ -31,7 +35,7 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2DA5F3', 
+    backgroundColor: '#2F9BFF', 
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
@@ -83,5 +87,7 @@ const styles = StyleSheet.create({
   skipText: {
     color: '#fff',
     fontWeight: '500',
+    
   },
 });
+export default OnBoarding2;

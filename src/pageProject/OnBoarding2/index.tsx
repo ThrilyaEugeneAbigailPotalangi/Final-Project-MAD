@@ -21,8 +21,8 @@ const OnBoarding2 = ({navigation}: Props) => {
       />
 
       <View style={styles.dotsContainer}>
-        <View style={styles.dot} />
         <View style={[styles.dot, styles.activeDot]} />
+        <View style={styles.dot} />
       </View>
 
       <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate ('OnBoarding1')}>

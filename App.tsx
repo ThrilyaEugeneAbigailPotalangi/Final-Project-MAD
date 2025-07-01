@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FlashMessage from 'react-native-flash-message';
 
+import './src/config/FirebaseProject'; 
 
 import SplashScreen from './src/pageProject/SplashScreen';
 import SignIn from './src/pageProject/SignIn';
@@ -15,7 +17,6 @@ import CreateExpenses from './src/pageProject/CreateExpenses';
 import Goals from './src/pageProject/Goals';
 import Reminder from './src/pageProject/Reminder';
 import Profile from './src/pageProject/Profile';
-
 
 export type RootStackParamList = {
   SplashScreen: undefined;
@@ -32,19 +33,15 @@ export type RootStackParamList = {
   Profile: undefined;
 };
 
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="SplashScreen"
-        screenOptions={{ headerShown: false }}
-      >
+      <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="OnBoarding2" component={OnBoarding2} />
         <Stack.Screen name="OnBoarding1" component={OnBoarding1} />
+        <Stack.Screen name="OnBoarding2" component={OnBoarding2} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -55,6 +52,8 @@ const App = () => {
         <Stack.Screen name="Reminder" component={Reminder} />
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
+
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 };

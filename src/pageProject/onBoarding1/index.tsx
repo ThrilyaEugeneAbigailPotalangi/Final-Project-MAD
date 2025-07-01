@@ -3,7 +3,7 @@ import {View,Text,StyleSheet,Image,TouchableOpacity,SafeAreaView,} from 'react-n
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../App';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding2'>
+type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding1'>
 
 const OnboardingScreen1 = ({navigation} : Props) => {
   return (
@@ -25,9 +25,8 @@ const OnboardingScreen1 = ({navigation} : Props) => {
         />
        
         <View style={styles.indicatorWrapper}>
+          <View style={styles.dot} />
           <View style={[styles.dot, styles.activeDot]} />
-          <View style={styles.dot} />
-          <View style={styles.dot} />
         </View>
 
         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>

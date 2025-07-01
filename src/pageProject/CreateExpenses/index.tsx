@@ -11,15 +11,15 @@ export default function ExpensesScreen() {
         <TextInput style={styles.input} placeholder="Enter title" />
 
         <Text style={styles.label}>Amount</Text>
-        <TextInput style={styles.input} placeholder="Start time" />
+        <TextInput style={styles.input} placeholder="Enter amount" />
 
         <Text style={styles.label}>Date</Text>
-        <TextInput style={styles.input} placeholder="End time" />
+        <TextInput style={styles.input} placeholder="Enter date" />
 
         <Text style={styles.label}>Category</Text>
         <TextInput
           style={[styles.input, styles.notesInput]}
-          placeholder="Write notes"
+          placeholder="Enter category"
           multiline
         />
 

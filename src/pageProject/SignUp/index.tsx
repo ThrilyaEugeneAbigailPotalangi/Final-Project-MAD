@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import Gap from '../../componentsProject/atomsProject/Gap';
 import Button from '../../componentsProject/atomsProject/buttonProject';
 import TextInput from '../../componentsProject/moleculsProject/TextInput';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../App';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database';
+import { showMessage } from 'react-native-flash-message';
+import { launchCamera } from 'react-native-image-picker';
+import { nullphoto } from '../../assets';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
@@ -12,10 +23,69 @@ const SignUp = ({ navigation }: Props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [photo, setPhoto] = useState(nullphoto);
+  const [base64, setBase64] = useState('');
+
+  const getImage = async () => {
+    const result = await launchCamera({
+      maxHeight: 100,
+      maxWidth: 100,
+      quality: 0.5,
+      includeBase64: true,
+      mediaType: 'photo',
+    });
+
+    if (result.didCancel) {
+      showMessage({
+        message: 'Pengambilan foto dibatalkan',
+        type: 'danger',
+      });
+      setPhoto(nullphoto);
+    } else {
+      const data = result.assets?.[0];
+      if (data?.base64 && data?.type) {
+        const photoBase64 = `data:${data.type};base64,${data.base64}`;
+        setBase64(photoBase64);
+        setPhoto({ uri: photoBase64 });
+      }
+    }
+  };
 
   const handleSignUp = () => {
-    
-    navigation.navigate('Dashboard', { username });
+    if (!username || !email || !password) {
+      showMessage({
+        message: 'Semua field wajib diisi',
+        type: 'danger',
+      });
+      return;
+    }
+
+    const auth = getAuth();
+    const db = getDatabase();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+
+        set(ref(db, 'users/' + user.uid), {
+          fullName: username,
+          email: email,
+          photo: base64,
+        });
+
+        showMessage({
+          message: 'Akun berhasil didaftarkan!',
+          type: 'success',
+        });
+
+        navigation.navigate('Dashboard', { username });
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      });
   };
 
   return (
@@ -24,7 +94,11 @@ const SignUp = ({ navigation }: Props) => {
       <Text style={styles.heading}>Registration</Text>
 
       <Gap height={24} />
-      <View style={styles.avatar} />
+      <TouchableOpacity onPress={getImage} activeOpacity={0.7}>
+        <View style={styles.avatar}>
+          <Image source={photo} style={styles.avatarImage} />
+        </View>
+      </TouchableOpacity>
 
       <Gap height={32} />
 
@@ -87,6 +161,15 @@ const styles = StyleSheet.create({
     height: 119,
     backgroundColor: '#D9D9D9',
     borderRadius: 119 / 2,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatarImage: {
+    width: 119,
+    height: 119,
+    borderRadius: 119 / 2,
+    resizeMode: 'cover',
   },
   label: {
     fontSize: 13,
